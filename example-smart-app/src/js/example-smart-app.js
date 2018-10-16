@@ -62,7 +62,7 @@
           p.ldl = getQuantityValueAndUnit(ldl[0]);
           
           smart.patient.api.search({type: 'MedicationOrder'}).done(function(prescriptions) {
-            patient.prescriptions = prescriptions;
+            p.prescriptions = prescriptions;
             ret.resolve(p);
           });
           
