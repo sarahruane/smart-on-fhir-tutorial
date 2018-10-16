@@ -9,8 +9,6 @@
 
     function onReady(smart)  {
       
-      console.log(smart);
-      
       if (smart.hasOwnProperty('patient')) {
         var patient = smart.patient;
         var pt = patient.read();
@@ -62,8 +60,12 @@
 
           p.hdl = getQuantityValueAndUnit(hdl[0]);
           p.ldl = getQuantityValueAndUnit(ldl[0]);
-
-          ret.resolve(p);
+          
+          smart.patient.api.search({type: 'MedicationOrder'}).done(function(prescriptions) {
+            patient.prescriptions = prescriptions;
+            ret.resolve(p);
+          });
+          
         });
       } else {
         onError();
